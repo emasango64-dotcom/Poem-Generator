@@ -1,0 +1,216 @@
+import random
+
+# vocabulary list for each theme.
+word_bank = {
+    "nature": {
+        "nouns": [
+            "moon", "river", "forest", "wind", "star", "meadow", "ocean", "field", "garden",
+            "sunrise", "mountain", "rain", "mist", "lake", "orchard", "thunder", "cloud",
+            "breeze", "pine", "stone", "leaf", "brook", "valley", "horizon", "dawn", "nightfall",
+            "snow", "stream", "petal", "glade", "canyon", "hollow", "garden", "root", "fern", "wildflower"
+        ],
+        "verbs": [
+            "whispers", "glows", "drifts", "sleeps", "wanders", "shines", "falls", "moves",
+            "sings", "breathes", "turns", "blooms", "cradles", "rises", "flows", "calls",
+            "leans", "echoes", "returns", "gathers", "dances", "waits", "stirs", "leans", "shivers"
+        ],
+        "adjectives": [
+            "silent", "golden", "gentle", "restless", "wild", "soft", "bright", "mossy",
+            "ancient", "velvet", "misty", "hopeful", "deep", "calm", "faint", "starlit",
+            "crimson", "emerald", "silver", "lively", "frozen", "distant", "sunlit", "timeless",
+            "patient", "hidden", "blooming", "lush", "cool", "stormy"
+        ],
+        "adverbs": [
+            "softly", "quietly", "slowly", "gently", "wildly", "gracefully", "deeply",
+            "carefully", "brightly", "silently", "patiently", "steadily", "dreamily", "distantly",
+            "warmly", "sweetly", "gracefully", "meekly", "boldly", "merrily"
+        ]
+    },
+    "love": {
+        "nouns": [
+            "heart", "kiss", "promise", "ember", "dream", "breeze", "song", "midnight", "rose",
+            "horizon", "fire", "silence", "soul", "touch", "memory", "shadow", "home", "lantern",
+            "charm", "scent", "breath", "constellation", "arms", "window", "forever", "tide", "ember"
+        ],
+        "verbs": [
+            "holds", "leans", "glows", "burns", "calls", "waits", "mends", "sways", "remembers",
+            "rises", "kisses", "follows", "loves", "heals", "hums", "draws", "chases", "wraps",
+            "reveals", "keeps", "carries", "finds", "supports", "shelters"
+        ],
+        "adjectives": [
+            "warm", "gentle", "sweet", "wild", "brave", "endless", "quiet", "tender", "golden",
+            "silent", "fading", "bold", "radiant", "lasting", "deep", "kind", "faithful", "soft",
+            "innocent", "patient", "bright", "timeless", "lovely", "dancing", "velvet"
+        ],
+        "adverbs": [
+            "softly", "deeply", "endlessly", "warmly", "closely", "quietly", "boldly", "gently",
+            "sweetly", "tenderly", "faithfully", "lightly", "slowly", "passionately", "gracefully"
+        ]
+    },
+    "sadness": {
+        "nouns": [
+            "shadow", "teardrop", "winter", "echo", "memory", "emptiness", "stone", "rain", "dusk",
+            "grave", "silence", "mist", "lone", "cold", "breath", "mourning", "tomb", "hollow", "storm",
+            "leaf", "ash", "fading", "distance", "void", "ruin", "nightfall"
+        ],
+        "verbs": [
+            "breaks", "fades", "falls", "drifts", "cries", "hollows", "remembers", "sinks",
+            "lingers", "weeps", "stays", "whispers", "drowns", "dissolves", "turns", "surrenders",
+            "fades", "sobs", "bleeds", "stumbles", "shivers"
+        ],
+        "adjectives": [
+            "broken", "lonely", "forgotten", "cold", "fading", "heavy", "sad", "empty", "dim",
+            "quiet", "hollow", "tired", "ashen", "withered", "distant", "silent", "lost", "frozen",
+            "weary", "dusty", "mournful", "drifting", "lonely"
+        ],
+        "adverbs": [
+            "slowly", "quietly", "deeply", "painfully", "softly", "endlessly", "coldly", "sadly",
+            "weakly", "distantly", "hesitantly", "helplessly", "carefully", "barely"
+        ]
+    },
+    "hope": {
+        "nouns": [
+            "dawn", "light", "path", "future", "sparrow", "river", "window", "seed", "sun", "morning",
+            "bridge", "star", "promise", "bloom", "garden", "trail", "horizon", "breath", "door",
+            "lantern", "sky", "glow", "opening", "harbor", "echo", "flower"
+        ],
+        "verbs": [
+            "rises", "heals", "grows", "opens", "shines", "moves", "returns", "awakens", "leans",
+            "blossoms", "guides", "carries", "builds", "blazes", "sways", "glimmers", "drives",
+            "soars", "discovers", "restores", "forgives", "calls"
+        ],
+        "adjectives": [
+            "bright", "hopeful", "new", "gentle", "strong", "warm", "bold", "golden", "steady",
+            "open", "calm", "patient", "brilliant", "clear", "fresh", "rising", "luminous", "sparkling",
+            "radiant", "graceful", "grounded"
+        ],
+        "adverbs": [
+            "brightly", "slowly", "steadily", "gently", "boldly", "warmly", "patiently", "softly",
+            "surely", "clearly", "lightly", "bravely", "gracefully", "quietly", "strongly"
+        ]
+    }
+}
+
+# Rhyme families
+rhyme_families = {
+    "nature": ["light", "bright", "night", "flight", "sight", "glow", "show", "flow", "stream", "dream", "gleam", "beam"],
+    "love": ["fire", "desire", "higher", "wire", "glow", "show", "slow", "rose", "close", "home", "roam", "dream"],
+    "sadness": ["stone", "alone", "grown", "known", "rain", "pain", "chain", "strain", "tears", "years", "slow", "snow"],
+    "hope": ["light", "bright", "flight", "sight", "dawn", "drawn", "glow", "show", "grow", "flow", "home", "roam"]
+}
+
+# templates using a rhyme word at the end.
+poem_templates = {
+    "nature": [
+        "The {adj} {noun} {verb} beneath the {rhyme}.",
+        "A {adj} breeze {verb} softly through the {rhyme}.",
+        "The {noun} {verb} {adv}, and the dark begins to {rhyme}.",
+        "I hear your {noun} {verb} in the {rhyme}.",
+        "Our {noun} {verb} {adv}, as the {noun} turns {adj} in the {rhyme}.",
+        "The {adj} {noun} waits {adv} beside the {rhyme}."
+    ],
+    "love": [
+        "My {adj} {noun} {verb} {adv} in your {rhyme}.",
+        "Your {adj} {noun} {verb} through my {rhyme}.",
+        "We {verb} {adv}, like a {adj} {noun} in the {rhyme}.",
+        "The {adj} {noun} keeps {verb} beneath the {rhyme}.",
+        "I carry your {noun} and it {verb}s through the {rhyme}.",
+        "Our {noun} {verb}s {adv}, even when the world turns {rhyme}."
+    ],
+    "sadness": [
+        "The {adj} {noun} {verb} {adv} in my {rhyme}.",
+        "A {adj} memory {verb}s through the {rhyme}.",
+        "My {noun} {verb}s {adv}, and the silence grows {rhyme}.",
+        "The {adj} {noun} {verb}s alone in the {rhyme}.",
+        "I walk through the {adj} {noun}, still hearing the {rhyme}.",
+        "The {noun} {verb}s {adv}, and my heart calls for {rhyme}."
+    ],
+    "hope": [
+        "The {adj} {noun} {verb}s {adv} in the {rhyme}.",
+        "A {adj} {noun} {verb}s across the {rhyme}.",
+        "Even in the {adj} night, my {noun} learns to {rhyme}.",
+        "The {noun} {verb}s {adv}, and I begin to {rhyme}.",
+        "Tomorrow opens a {adj} {noun} beside the {rhyme}.",
+        "With a {adj} heart, I {verb} toward the {rhyme}."
+    ]
+}
+
+
+def choose_theme():
+    """Return a random theme from the available list."""
+    return random.choice(list(word_bank.keys()))
+
+
+def choose_rhyme(theme):
+    """Pick one rhyme family for the poem."""
+    if theme in rhyme_families:
+        return random.choice(rhyme_families[theme])
+    return "light"
+
+
+def generate_line(theme=None, rhyme_word=None):
+    """Generate a single line of poetry with a rhyme ending."""
+    selected_theme = theme if theme in word_bank else choose_theme()
+    words = word_bank[selected_theme]
+    template = random.choice(poem_templates[selected_theme])
+
+    if rhyme_word is None:
+        rhyme_word = choose_rhyme(selected_theme)
+
+    return template.format(
+        noun=random.choice(words["nouns"]),
+        verb=random.choice(words["verbs"]),
+        adj=random.choice(words["adjectives"]),
+        adv=random.choice(words["adverbs"]),
+        rhyme=rhyme_word
+    )
+
+
+def generate_poem(lines=6, theme=None):
+    """Generate a poem with a shared rhyme family."""
+    selected_theme = theme if theme in word_bank else choose_theme()
+    rhyme_family = rhyme_families.get(selected_theme, ["light"])
+    poem = [f"[{selected_theme.title()} Theme]"]
+
+    for _ in range(lines):
+        rhyme_word = random.choice(rhyme_family)
+        poem.append(generate_line(selected_theme, rhyme_word))
+
+    return "\n".join(poem)
+
+
+def main():
+    """Run the poetry generator in the console."""
+    print("=== Advanced Poetry Generator ===\n")
+
+    while True:
+        theme = input("Choose a theme (nature/love/sadness/hope) or press Enter for random: ").strip().lower()
+        if theme == "":
+            poem = generate_poem(6)
+        elif theme in word_bank:
+            poem = generate_poem(6, theme)
+        else:
+            print("Invalid theme. Try: nature, love, sadness, hope")
+            continue
+
+        print("\n" + poem)
+        print("\n---------------------")
+
+        choice = input("Generate another poem? (y/n): ").strip().lower()
+        if choice != "y":
+            print("Goodbye!")
+            break
+
+
+if __name__ == "__main__":
+    main()
+
+
+# Example output:
+# [Nature Theme]
+# The golden river whispers beneath the light.
+# A gentle breeze dances softly through the night.
+# The meadow stirs quietly, and the dark begins to glow.
+# I hear your echo rising in the flow.
+# Our dawn waits patiently beside the stream.
+# The silent valley breathes and carries the dream.
